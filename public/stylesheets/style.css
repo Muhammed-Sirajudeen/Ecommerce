@@ -1,0 +1,19 @@
+.hidden{
+  display: none;
+}
+.navbar-manual{
+  background-color: black;
+  color: whitesmoke;
+}
+#main-form{
+  border: 100px;
+  border-color:black;
+  background-color: blueviolet;
+  color: white;
+  border-radius: 20px;
+  padding: 20px;
+}
+#body{
+  background-color: lightgrey;
+}
+
