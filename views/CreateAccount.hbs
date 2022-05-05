@@ -1,11 +1,7 @@
-<div class="container p-4">
+<div class="container">
     <div class="row">
-        <div class="col-md-4 col-lg-4">
-            <div class="hidden"><p>Nothing here</p></div>
-        </div>
-        <div class="col-md-4 col-lg-4" id="main-form">
-            <div class="text-center">
-                <form action="/submit-login" method="post" enctype="application/x-www-form-urlencoded">
+        <div class="col">
+                            <form action="/submit-logout" method="post" enctype="application/x-www-form-urlencoded">
 
   <div class="mb-3">
     <label for="exampleInputusername" class="form-label">Username</label>
@@ -17,12 +13,11 @@
     <input type="password" class="form-control" id="exampleInputPassword1" name="password">
   </div>
   <div class="mb-3 form-check">
-    <a href="/CreateAccount" id="create-link">create account</a>
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
   </div>
   <input type="submit" class="btn btn-primary" value="submit"></button>
 </form>
-
-            </div>
         </div>
     </div>
 </div>
