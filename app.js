@@ -6,6 +6,13 @@ var logger = require('morgan');
 var hbs=require('express-handlebars');
 var loginRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
+const connectivity=require('./routes/Database/database')
+
+connectivity.Database_Connectivity().then(()=>{
+  console.log("connection successfull")
+}).catch((data)=>{
+  console.log("connection unsuccessful")
+})
 
 var app = express();
 

@@ -11,15 +11,18 @@ router.get('/', function(req, res, next) {
 router.post('/submit-login',async function (req, res) {
     let username = req.body.username;
     let password = req.body.password;
-    var name={"name":username}
-
-    con.FetchFromdb(function hey(docs) {
-        console.log(docs)
+    identifier={"name":username}
+    con.fetchData('Ecommerce','Authentication',identifier).then((data)=>{
+      let password_authentication=data.password
+      if (password_authentication==password){
         res.render('index',{user:true,login:true})
-   
         
+      }else{
+        res.render('index',{login:false,user:false})
+      }
 
-    },name)
+    })
+
 
 
   });
