@@ -13,9 +13,13 @@ router.post('/submit-login',async function (req, res) {
     let password = req.body.password;
     identifier={"name":username}
     con.fetchData('Ecommerce','Authentication',identifier).then((data)=>{
+      console.log(data)
       let password_authentication=data.password
       if (password_authentication==password){
-        res.render('index',{user:true,login:true})
+        con.fetchDataProducts('Ecommerce','Products').then((data)=>{
+          res.render('index',{user:true,login:true,data})
+      })
+        
         
       }else{
         res.render('index',{login:false,user:false})
@@ -35,11 +39,11 @@ router.post('/submit-logout',(req,res,next)=>{
   let password_create=req.body.password
   console.log(username_create)
   console.log(password_create)
-  if (username_create!=" "){
-    console.log("\n success\n")
-  }else{
-    print("the entered value is null")
-  }
+  database_obj={"name":username_create,"password":password_create}
+  con.InsertdataDatabase('Ecommerce','Authentication',database_obj).then((data)=>{
+    console.log(data)
+})
+
   res.render('login')
 });
 

@@ -32,6 +32,44 @@ function Database_Connectivity(){
             })
         })
         }
+
+
+        function fetchDataProducts(databasename,collectionname){
+            url='mongodb://127.0.0.1:27017'
+            return new Promise((resolve,reject)=>{
+                MongoClient.connect(url,async(err,client)=>{
+                    if(!err){
+                        console.log("successful")
+                        const db=client.db(databasename)
+                        let database_data=await db.collection(collectionname).find().toArray()
+                        dataclean=database_data
+                        resolve(dataclean)
+                    }
+                })
+            })
+        }
+
+        function InsertdataDatabase(databasename,collectionname,data_insert){
+            url='mongodb://127.0.0.1:27017'
+            return new Promise((resolve,reject)=>{
+                MongoClient.connect(url,(err,client)=>{
+                    if(!err){
+                        console.log("success")
+                        const db=client.db(databasename)
+                        db.collection(collectionname).insertOne(data_insert,(err,res)=>{
+                            if(err){
+                                console.log("error")
+                            }else{
+                                console.log("document inserted")
+                                resolve("success")
+                            }
+                        })
+                    }
+                })
+            })
+        }
+
+
         
         
     
@@ -40,8 +78,8 @@ function Database_Connectivity(){
 
 module.exports.Database_Connectivity=Database_Connectivity;
 module.exports.fetchData=fetchData;
-
-
+module.exports.fetchDataProducts=fetchDataProducts;
+module.exports.InsertdataDatabase=InsertdataDatabase;
 
 
 
