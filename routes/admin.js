@@ -8,4 +8,12 @@ router.get('/', function(req, res, next) {
 
 module.exports = router;
 
+router.post('/adminlogin', function(req, res, next) {
+  console.log(req.body.username)
+  console.log(req.body.password)
+
+  
+  res.render('index',{admin:true,login:true});
+});
+
 

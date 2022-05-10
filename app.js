@@ -7,7 +7,7 @@ var hbs=require('express-handlebars');
 var loginRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
 const connectivity=require('./routes/Database/database')
-
+var session=require('express-session');
 connectivity.Database_Connectivity().then(()=>{
   console.log("connection successfull")
 }).catch((data)=>{
@@ -25,6 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret:"Key",cookie:{maxAge:6000000}}))
 
 app.use('/', loginRouter);
 app.use('/admin', adminRouter);

@@ -1,12 +1,20 @@
 var express = require('express');
 var router = express.Router();
 var con=require('./Database/database')
-var id=1;
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('login');
+  let user=req.session.user
+  console.log(user)
+  if(user){
+    data={name:"siraju"}
+  res.render('index',{login:true,user:true,data});
+  }else{
+    
+    res.render('login')
+  }
+
 });
 router.post('/submit-login',async function (req, res) {
     let username = req.body.username;
@@ -18,7 +26,10 @@ router.post('/submit-login',async function (req, res) {
       if (password_authentication==password){
         con.fetchDataProducts('Ecommerce','Products').then((data)=>{
           res.render('index',{user:true,login:true,data})
-      })
+          req.session.loggedIn=true
+          var m=123
+          req.session.user=m
+        })
         
         
       }else{
@@ -45,6 +56,14 @@ router.post('/submit-logout',(req,res,next)=>{
 })
 
   res.render('login')
+});
+
+router.get('/cart', function(req, res, next) {
+  res.render('cart');
+});
+router.get('/Addtocart', function(req, res, next) {
+
+  res.render('login');
 });
 
 
