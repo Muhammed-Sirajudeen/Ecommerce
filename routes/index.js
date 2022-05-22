@@ -21,9 +21,21 @@ router.post('/submit-login',async function (req, res) {
     let password = req.body.password;
     identifier={"name":username}
     con.fetchData('Ecommerce','Authentication',identifier).then((data)=>{
+      
       console.log(data)
-      let password_authentication=data.password
-      if (password_authentication==password){
+      if(data){
+        var password_authentication=data.password
+
+      }else{
+        password_authentication=null;
+      }
+      if(password==password_authentication){
+        var auth=true;
+      }else{
+        var auth=null;
+      }
+      if (auth){
+        console.log("hey")
         con.fetchDataProducts('Ecommerce','Products').then((data)=>{
           res.render('index',{user:true,login:true,data})
           req.session.loggedIn=true
@@ -33,7 +45,8 @@ router.post('/submit-login',async function (req, res) {
         
         
       }else{
-        res.render('index',{login:false,user:false})
+        console.log("hello")
+        res.render('login',{err1:true})
       }
 
     })
@@ -59,12 +72,23 @@ router.post('/submit-logout',(req,res,next)=>{
 });
 
 router.get('/cart', function(req, res, next) {
-  res.render('cart');
+  if(req.session.loggedIn){
+    res.render('cart')
+  }else{
+    res.render('login')
+  }
+
+  
 });
 router.get('/Addtocart', function(req, res, next) {
 
   res.render('login');
 });
+
+router.get('/signout',(req,res)=>{
+  req.session.destroy()
+  res.render('login')
+})
 
 
 module.exports = router;
